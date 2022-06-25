@@ -62,10 +62,11 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 8px 10px;
+    padding: 10px 10px;
     cursor: pointer;
     font-size: 12px;
     margin-left: 2px;
+    max-height: 10vh;
 }
 .controls_button i {
     font-size: 1.6em;
@@ -113,7 +114,6 @@ body{
     color: black;
     padding: 8px 8px;
     text-decoration: none;
-    display: block;
     font-size: 16px;
     text-align: center;
 }
@@ -122,6 +122,15 @@ body{
 }
 .show_content {
     display: block;
+}
+.white_board {
+    display: block;
+}
+.more_participant {
+    display: none;
+}
+.more_share {
+    display: none;
 }
 
 
@@ -182,7 +191,9 @@ body{
         width: 60%;
         height: 90%;
     }
-    
+    .more_participant {
+        display: block;
+    }
 }
 @media only screen and (max-width: 450px) {
     .controls_time{
@@ -190,5 +201,8 @@ body{
     }
     .share_screen{
         display: none;
+    }
+    .more_share{
+        display: block;
     }
 }

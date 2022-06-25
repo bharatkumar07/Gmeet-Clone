@@ -145,15 +145,15 @@ chatbtn.addEventListener('click', ()=> {
 document.querySelector('.more_options').addEventListener('click', ()=>{
     document.querySelector('.more_options_content').classList.toggle('show_content');
 })
-// //to close the more options content if user clicks oustide of it
-// window.onclick = function(event){
-//     if(!event.target.matches('.more_options')){
-//         let content = document.getElementsByClassName('more_options_content');
-//         for(let i=0; i<content.length; i++){
-//             let x = content[i];
-//             if(x.classList.contains('show_content')){
-//                 x.classList.remove('show_content');
-//             }
-//         }
-//     }
-// }
+//to close the more options content if user clicks oustide of it
+window.onclick = function(event){
+    if(!event.target.matches('.more')){
+        let content = document.getElementsByClassName('more_options_content');
+        for(let i=0; i<content.length; i++){
+            let x = content[i];
+            if(x.classList.contains('show_content')){
+                x.classList.remove('show_content');
+            }
+        }
+    }
+}
