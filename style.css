@@ -135,6 +135,17 @@ nav ul {
     justify-content:flex-end;
     font-size: 22px;
 }
+.day {
+    font-size: 1.2rem;
+    color: #5f6368;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+}
+.time {
+    font-size: 1.2rem;
+    color: #5f6368;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    padding-right: 2px;
+}
 
 nav ul li {
     padding: 0px 12px;
@@ -154,7 +165,6 @@ nav ul li {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    pading:5px;
 }
 
 .button {
@@ -190,8 +200,12 @@ input{
 }
 
 .setting{
-   
+    cursor:pointer;
     color: rgb(45, 43, 43);
+}
+.setting:hover{
+    background-color: #f4e0ce;
+    border-radius: 150px;
 }
 .box1 p h1 {
     text-align: left;
@@ -244,5 +258,42 @@ section{
     padding-top: 20px;
     margin-top: 0px;
 }
+.navright{
+    font-size: 20px;
+}
+.day {
+    padding-left: 0;
+    font-size: 18px;
+    padding-right: 0;
+}
+.time {
+    padding-right: 10px;
+    font-size: 18px;
+    padding-left: 5px;
+}
 
+}
+@media only screen and (max-width:425px){
+    nav ul li {
+        padding: 0 8px;
+    }
+    .day {
+        display: none;
+    }
+}
+@media only screen and (max-width:330px) {
+    .navright{
+        flex-grow:0.8;
+    }
+    #mainImage img{
+        width: 100%;
+    }
+    input {
+        width:90%;
+    }
+}
+@media only screen and (max-width:292px){
+    .time {
+        display: none;
+    }
 }
