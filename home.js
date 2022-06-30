@@ -29,5 +29,5 @@ setInterval(() => {
 
 //function to join meeting
 function meeting(){
-    location.href="Meeting/meeting.html";
+    location.href="#";
 }
