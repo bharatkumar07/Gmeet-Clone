@@ -1,0 +1,211 @@
+.allvideos {
+    height:100%;
+}
+#video-grid {
+    /* width: 80%; */
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+video {
+    width: 250px;
+    height: 300px;
+    margin: 10px;
+    object-fit: cover;
+}
+
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.main {
+    height: 90vh;
+    display: flex;
+    flex-flow: wrap;
+    background-color: black;
+    margin-bottom: 10vh;
+    
+}
+.left-section {
+    height: 100%;
+    color: aliceblue;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.allvideos {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controls {
+    position: fixed;
+    bottom: 0;
+    height: 10vh;
+    width: 100vw;
+    color: aliceblue;
+    display: flex;
+    padding: 5px 10px;
+    background-color: #1c1c1c;
+    justify-content: space-between;
+    align-items: center;
+}
+.controlsblock {
+    display: flex;
+}
+.controls_button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 2px;
+    max-height: 10vh;
+}
+.controls_button i {
+    font-size: 1.6em;
+}
+.controls_button span{
+    text-align: center;
+}
+.leave_call {
+    background-color: red;
+}
+.controls_button:hover {
+    background-color: #353434;
+    border-radius: 5px;
+}
+.leave_call:hover {
+    background-color: rgb(234, 38, 38);
+}
+.controls_time {
+    padding-left: 8px;
+    font-weight: 500;
+}
+.mute_audio {
+    background-color: red;
+}
+.mute_audio:hover {
+    background-color: rgb(234, 38, 38);
+}
+.stop_video {
+    background-color: red;
+}
+.stop_video:hover {
+    background-color: rgb(234, 38, 38);
+}
+.more_options_content {
+    display: none;
+    position: absolute;
+    bottom: 10vh;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0px rgba(0,0,0,0.2);
+    
+}
+.more_options_content a{
+    color: black;
+    padding: 8px 8px;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+}
+.more_options_content a:hover{
+    background-color: rgb(221, 221, 221);
+}
+.show_content {
+    display: block;
+}
+.white_board {
+    display: block;
+}
+.more_participant {
+    display: none;
+}
+.more_share {
+    display: none;
+}
+
+
+.right-section {
+    height: 100%;
+    width: 25%;
+    background-color: black;
+    box-sizing: border-box;
+}
+.chat_system {
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    background-color:#f5f5f5;
+    border-left: 1px solid #f1f3f4;
+    color: rgb(0,0,0,0.87);
+    padding: 0.7em 0.5em 0 0.5em;
+    border-radius: 10px;
+    margin: 5%;
+}
+.chathead{
+    text-align: center;
+}
+.chat_window{
+    flex-grow: 1;
+}
+.message_container{
+    padding: 22px 12px;
+    display: flex;
+}
+.message_container input {
+    font-size: 85%;
+    width: 100%;
+    background-color: #e5e8ea;
+    border-radius: 5px;
+    border: none;
+    padding: 2%;
+}
+.messeges {
+    list-style: none;
+}
+
+@media only screen and (max-width: 820px){
+    .right-section{
+        position: absolute;
+        left:60%;
+        width: 40%;
+        height: 90%;
+    }
+}
+@media only screen and (max-width: 610px){
+    .participant {
+        display: none;
+    }
+    .right-section{
+        position: absolute;
+        left:40%;
+        width: 60%;
+        height: 90%;
+    }
+    .more_participant {
+        display: block;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .controls_time{
+        display: none;
+    }
+    .share_screen{
+        display: none;
+    }
+    .more_share{
+        display: block;
+    }
+}
