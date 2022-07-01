@@ -1,5 +1,8 @@
 // var socket = io('http://yourDomain:port', { transports: ['WebSocket'] });
 let socket = io('/');
+const form = document.getElementById('send-container');
+const messageInput = document.getElementById('messageInp');
+const messageContainer = document.querySelector(".container");
 const videoGrid = document.getElementById('video-grid');
 const peer = new Peer(undefined, {
     path: '/peerjs',
@@ -7,6 +10,31 @@ const peer = new Peer(undefined, {
     port: '3030'
 }
 );
+const append = (message, position) => {
+    const messageElement = document.createElement('div');
+    messageElement.innerText = message;
+    messageElement.classList.add('message');
+    messageElement.classList.add(position);
+    messageContainer.append(messageElement);
+}
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = messageInput.value;
+    append(`You:${message}`, 'right');
+    socket.emit('send', message);
+    messageInput.value = ''
+})
+const nig = prompt("enter your name to join");
+socket.emit('new-user-joined', nig);
+socket.on('user-joined', nig => {
+    append(`${nig} joined`, 'right');
+})
+socket.on('receive', data => {
+    append(`${data.nig}: ${data.message}`, 'left');
+})
+socket.on('left', nig => {
+    append(`${nig} left`, 'left');
+})
 const myVideo = document.createElement('video');
 myVideo.muted = false;
 const peers = {}
@@ -39,7 +67,7 @@ peer.on('call', function(call) {
 });
 
 peer.on('open', id => {
-    socket.emit('join-room', ROOM_ID, id)
+    socket.emit('join-room', ROOM_ID, id);
 }
 )
 
@@ -146,39 +174,39 @@ setInterval(() => {
 document.querySelector('.leave_call').addEventListener('click', () => {
     let leavecall = confirm("Confirm to leave the call: ");
     if (leavecall) {
-        window.location = "../index.html";
+        window.location = "../";
     }
 })
 
 //for chat_button
 let chatbtn = document.querySelector('.chat_button');
 chatbtn.addEventListener('click', () => {
-    let html = `
-        <div class="right-section">
-            <div class="chat_system">
-            <div class="chathead">
-                <h5>Chat</h5>
-            </div>
-            <hr style="margin:0.4rem 0">
-            <div class="chat_window">
-                <ul class="messages">
+    let right = document.querySelector('.right-section');
+    // let html = `
+    //     <div class="right-section">
+    //         <div class="chat_system">
+    //         <div class="chathead">
+    //             <h5>Chat</h5>
+    //         </div>
+    //         <hr style="margin:0.4rem 0">
+    //         <div class="chat_window">
+    //             <ul class="messages">
                     
-                </ul>
-            </div>
-            <div class="message_container">
-                <input id="chat_message" type="text" placeholder="Type message here...">
-            </div>
-            </div>
-        </div>
-    `
+    //             </ul>
+    //         </div>
+    //         <div class="message_container">
+    //             <input id="chat_message" type="text" placeholder="Type message here...">
+    //         </div>
+    //         </div>
+    //     </div>
+    // `
 
-    const main = document.querySelector('.main');
-    if (main.childElementCount > 1) { //if right-section(chat) is already present then remove it
-        document.querySelector('.right-section').remove();
+    if (document.querySelector('.show_right').style.display == "block") { //if right-section(chat) is already present then remove it
+        document.querySelector('.show_right').style.display = "none";
         document.querySelector('.left-section').style.width = "100%";
     }
     else {
-        main.insertAdjacentHTML('beforeend', html); //beforeend is used to insert this html just before the end of main class
+        document.querySelector('.show_right').style.display = "block";
 
         //changing the width of left_section from 100% to 75%
         document.querySelector('.left-section').style.width = "75%";
