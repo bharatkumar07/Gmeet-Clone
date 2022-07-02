@@ -1,4 +1,8 @@
 // var socket = io('http://yourDomain:port', { transports: ['WebSocket'] });
+var count=0;
+var map = new Map();
+map.set(null,0);
+
 let socket = io('/');
 const form = document.getElementById('send-container');
 const messageInput = document.getElementById('messageInp');
@@ -53,6 +57,21 @@ navigator.mediaDevices.getUserMedia({
     })
 
 })
+socket.on('user-disconnected', userId=> {
+    if (peers[userId]){
+        let child=map.get(peers[userId]);
+        map.delete(peers[userId]);
+        videoGrid.removeChild(videoGrid.children[child]);
+        peers[userId].close();
+        for( let x of map.entries()){
+            if(x[1]>child){
+                map.set(x[0],x[1]-1);
+            }
+        }
+        count--;
+    }
+})
+
 var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 peer.on('call', function(call) {
   getUserMedia({video: true, audio: true}, function(stream) {
@@ -78,8 +97,9 @@ const connectToNewUser = (userId, stream) => {
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream)
     })
-    // peers[userId] = call
-    
+    peers[userId] = call;
+    count++;
+    map.set(call,count);
 }
 const addVideoStream = (video, stream) => {
     video.srcObject = stream;
