@@ -223,4 +223,8 @@ body{
     .more_share{
         display: block;
     }
+    video {
+        width: 150px;
+        height: 180px;
+    }
 }
