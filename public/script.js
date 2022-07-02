@@ -11,7 +11,7 @@ const videoGrid = document.getElementById('video-grid');
 const peer = new Peer(undefined, {
     path: '/peerjs',
     host: '/',
-    port: '3030'
+    port: '443'
 }
 );
 const append = (message, position) => {
