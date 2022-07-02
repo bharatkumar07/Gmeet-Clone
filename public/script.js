@@ -40,7 +40,7 @@ socket.on('left', nig => {
     append(`${nig} left`, 'left');
 })
 const myVideo = document.createElement('video');
-myVideo.muted = false;
+myVideo.muted = true;
 const peers = {}
 
 let myVideoStream;
