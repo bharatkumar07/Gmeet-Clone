@@ -28,6 +28,6 @@ setInterval(() => {
 }, 1000);
 
 //function to join meeting
-function meeting(){
-    location.href="room";
-}
+// function meeting(){
+//     location.href="room";
+// }
