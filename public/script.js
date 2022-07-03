@@ -51,13 +51,20 @@ navigator.mediaDevices.getUserMedia({
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
 
-    socket.on('user-connected', userId => {
-        // setTimeout(connectToNewUser, 1000, userId, stream);
-        connectToNewUser(userId, stream);
+    peer.on('call', call => {
+        call.answer(stream)
+        const video = document.createElement('video')
+        call.on('stream', userVideoStream => {
+          addVideoStream(video, userVideoStream)
+        })
     })
 
-})
-socket.on('user-disconnected', userId=> {
+    socket.on('user-connected', userId => {
+        setTimeout(connectToNewUser, 1000, userId, stream);
+        //connectToNewUser(userId, stream);
+    })
+
+    socket.on('user-disconnected', userId=> {
     if (peers[userId]){
         let child=map.get(peers[userId]);
         map.delete(peers[userId]);
@@ -71,19 +78,8 @@ socket.on('user-disconnected', userId=> {
         count--;
     }
 })
+})
 
-var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-peer.on('call', function(call) {
-  getUserMedia({video: true, audio: true}, function(stream) {
-    call.answer(stream); // Answer the call with an A/V stream.
-    const video = document.createElement('video')
-    call.on('stream', function(remoteStream) {
-      addVideoStream(video,remoteStream);
-    });
-  }, function(err) {
-    console.log('Failed to get local stream' ,err);
-  });
-});
 
 peer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id);
@@ -107,6 +103,14 @@ const addVideoStream = (video, stream) => {
         video.play();
     })
     videoGrid.append(video);
+    if(videoGrid.childElementCount==1){
+        document.querySelector('video').style.width= "80%";
+        document.querySelector('video').style.height= "90%";
+    }
+    else{
+        document.querySelector('video').style.width= videoGrid.lastChild.style.width;
+        document.querySelector('video').style.height= videoGrid.lastChild.style.height;
+    }
 }
 
 
