@@ -254,6 +254,9 @@ section{
     margin-left:0;
     margin-right: 0;
 }
+.button {
+    margin-bottom: 16px;
+}
 
 .container{
     padding-top: 20px;
@@ -282,7 +285,7 @@ section{
         display: none;
     }
 }
-@media only screen and (max-width:350px) {
+@media only screen and (max-width:380px) {
     .navright{
         flex-grow:0.8;
     }
@@ -290,7 +293,7 @@ section{
         width: 100%;
     }
     input {
-        width:90%;
+        width:80%;
     }
 }
 @media only screen and (max-width:292px){
