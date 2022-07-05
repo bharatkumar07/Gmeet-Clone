@@ -27,7 +27,8 @@ setInterval(() => {
     document.querySelector('.day').innerHTML = d;
 }, 1000);
 
-//function to join meeting
-// function meeting(){
-//     location.href="room";
-// }
+//for input
+let input=document.querySelector('input')
+document.querySelector('form').addEventListener('submit', ()=>{
+    document.querySelector('form').setAttribute('action',(window.location.href + input.value));
+})

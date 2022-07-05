@@ -129,6 +129,9 @@ const addVideoStream = (video, stream) => {
 }
 
 
+//join meeting link
+//share this meeting link with others you want in the meeting
+alert('share this meeting link with others you want in the meeting:    '+ ROOM_ID);
 
 //to mute the audio
 const muteAudio = () => {
