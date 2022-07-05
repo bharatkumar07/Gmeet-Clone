@@ -1,7 +1,4 @@
 // var socket = io('http://yourDomain:port', { transports: ['WebSocket'] });
-var count=0;
-var map = new Map();
-map.set(null,0);
 
 let socket = io('/');
 const form = document.getElementById('send-container');
@@ -20,6 +17,7 @@ const append = (message, position) => {
     messageElement.classList.add('message');
     messageElement.classList.add(position);
     messageContainer.append(messageElement);
+    messageContainer.scrollTop=messageContainer.scrollHeight;
 }
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -29,15 +27,31 @@ form.addEventListener('submit', (e) => {
     messageInput.value = ''
 })
 const nig = prompt("enter your name to join");
+
+//to add participant name inside participant_box
+let parti = document.querySelector('.participant_box');
+    let par = document.createElement('li');
+    par.innerHTML = `${nig}`;
+    parti.appendChild(par);
+    par.classList.add(nig);
+
 socket.emit('new-user-joined', nig);
 socket.on('user-joined', nig => {
     append(`${nig} joined`, 'right');
+    
+    let par = document.createElement('li');
+    par.classList.add(nig);
+    par.innerHTML = `${nig}`;
+    parti.appendChild(par);
+    
 })
 socket.on('receive', data => {
     append(`${data.nig}: ${data.message}`, 'left');
 })
 socket.on('left', nig => {
     append(`${nig} left`, 'left');
+    let p=document.querySelector(`.${nig}`);
+    if(p!=null){p.remove();}
 })
 const myVideo = document.createElement('video');
 myVideo.muted = true;
@@ -66,16 +80,8 @@ navigator.mediaDevices.getUserMedia({
 
     socket.on('user-disconnected', userId=> {
     if (peers[userId]){
-        let child=map.get(peers[userId]);
-        map.delete(peers[userId]);
-        videoGrid.removeChild(videoGrid.children[child]);
+        console.log('user left');
         peers[userId].close();
-        for( let x of map.entries()){
-            if(x[1]>child){
-                map.set(x[0],x[1]-1);
-            }
-        }
-        count--;
     }
 })
 })
@@ -93,9 +99,13 @@ const connectToNewUser = (userId, stream) => {
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream)
     })
+
     peers[userId] = call;
-    count++;
-    map.set(call,count);
+    
+    call.on('close', ()=>{
+        video.remove();
+    })
+    
 }
 const addVideoStream = (video, stream) => {
     video.srcObject = stream;
@@ -104,15 +114,19 @@ const addVideoStream = (video, stream) => {
     })
     videoGrid.append(video);
     if(videoGrid.childElementCount==1){
-        document.querySelector('video').style.width= "80%";
-        document.querySelector('video').style.height= "90%";
+        document.querySelector('video').style.width= '80%';
+        if(window.innerWidth<window.innerHeight){
+            document.querySelector('video').style.height = '90vw';
+        }
+        else{
+            document.querySelector('video').style.height = '80vh';
+        }
     }
     else{
         document.querySelector('video').style.width= videoGrid.lastChild.style.width;
         document.querySelector('video').style.height= videoGrid.lastChild.style.height;
     }
 }
-
 
 
 
@@ -206,24 +220,6 @@ document.querySelector('.leave_call').addEventListener('click', () => {
 let chatbtn = document.querySelector('.chat_button');
 chatbtn.addEventListener('click', () => {
     let right = document.querySelector('.right-section');
-    // let html = `
-    //     <div class="right-section">
-    //         <div class="chat_system">
-    //         <div class="chathead">
-    //             <h5>Chat</h5>
-    //         </div>
-    //         <hr style="margin:0.4rem 0">
-    //         <div class="chat_window">
-    //             <ul class="messages">
-                    
-    //             </ul>
-    //         </div>
-    //         <div class="message_container">
-    //             <input id="chat_message" type="text" placeholder="Type message here...">
-    //         </div>
-    //         </div>
-    //     </div>
-    // `
 
     if (document.querySelector('.show_right').style.display == "block") { //if right-section(chat) is already present then remove it
         document.querySelector('.show_right').style.display = "none";
@@ -231,11 +227,30 @@ chatbtn.addEventListener('click', () => {
     }
     else {
         document.querySelector('.show_right').style.display = "block";
+        document.querySelector('.show_right2').style.display = "none";
 
         //changing the width of left_section from 100% to 75%
         document.querySelector('.left-section').style.width = "75%";
     }
 })
+
+
+//for participation
+const openparticipant = () => {
+    let right = document.querySelector('.right-section2');
+
+    if (document.querySelector('.show_right2').style.display == "block") { //if right-section(chat) is already present then remove it
+        document.querySelector('.show_right2').style.display = "none";
+        document.querySelector('.left-section').style.width = "100%";
+    }
+    else {
+        document.querySelector('.show_right2').style.display = "block";
+        document.querySelector('.show_right').style.display = "none";
+
+        //changing the width of left_section from 100% to 75%
+        document.querySelector('.left-section').style.width = "75%";
+    }
+}
 
 //for more options
 document.querySelector('.more_options').addEventListener('click', () => {

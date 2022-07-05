@@ -32,8 +32,8 @@
                 </div>
             </div>
         </div>
-        <div id="screen" class="right-section show_right">
-            <div id="chat" class=chat_system>
+        <div class="right-section show_right">
+            <div class=chat_system>
                 <div class="chathead">
                      <h5>Chat</h5>
                 </div>
@@ -48,7 +48,23 @@
                     </form>
                 </div>
             </div>
-            </div>    
+        </div> 
+            <div class="right-section2 show_right2">
+                <div class=participant_system>
+                    <div class="partihead">
+                         <h5>Participant</h5>
+                    </div>
+                     <hr style="margin:0.4rem 0">
+                    <div class="parti_window">
+                        <ul class="participant_box">
+
+                        </ul>
+                    </div>
+                    <div class="participant_link">
+                        Link to join meeting: <%= roomId %>
+                    </div>
+                </div>
+            </div>   
     </div>
     <div class="controls">
         <div class="controls_time">    
@@ -73,7 +89,7 @@
                 <span class="more">More Options</span>
                 <div class="more_options_content">
                     <a href="#whiteboard" class="white_board">White Board</a>
-                    <a href="#participant" class="more_participant">Participant</a>
+                    <a onclick="openparticipant()" class="more_participant">Participant</a>
                     <a href="#shareScreen" class="more_share">Share Screen</a>
                 </div>
             </div>
@@ -84,7 +100,7 @@
         </div>
 
         <div class="controlsblock">
-            <div class="controls_button participant">
+            <div onclick="openparticipant()" class="controls_button participant">
                 <i class="fa-solid fa-user-group"></i>
                 <span class="Participant">Participant</span>
             </div>
