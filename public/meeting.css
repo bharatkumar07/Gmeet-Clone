@@ -206,9 +206,26 @@ body{
     clear: both;
 }
 .participant_link {
-    font-size: 0.7em;
+    font-size: 0.75em;
     font-weight: 500;
 }
+.participant_link span {
+    display: flex;
+    flex-flow: wrap;
+}
+.participant_link input {
+    background-color: #e5e8ea;
+    border-radius: 5px;
+    border: none;
+    padding: 2%;
+    width: 70%;
+}
+.copybtn {
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 
 @media only screen and (max-width: 820px){
     .right-section, .right-section2{

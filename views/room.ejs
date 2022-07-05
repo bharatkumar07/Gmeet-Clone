@@ -61,7 +61,11 @@
                         </ul>
                     </div>
                     <div class="participant_link">
-                        Link to join meeting: <%= roomId %>
+                        <label for="">Link to join meeting:</label>
+                        <span>
+                        <input type="text" class="link">
+                        <button class="copybtn" onclick="copylink()">Copy</button>
+                        </span>
                     </div>
                 </div>
             </div>   

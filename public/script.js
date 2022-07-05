@@ -130,8 +130,15 @@ const addVideoStream = (video, stream) => {
 
 
 //join meeting link
-//share this meeting link with others you want in the meeting
-alert('share this meeting link with others you want in the meeting:    '+ ROOM_ID);
+    let copyText = ROOM_ID;
+    document.querySelector('.link').value = copyText; 
+function copylink(){  //inside participant section
+    let inputlink = document.querySelector('.link');
+    inputlink.select();
+    inputlink.setSelectionRange(0,99999);
+    navigator.clipboard.writeText(inputlink.value);
+}
+alert('share this meeting link with others to join(available inside participant section):   '+ ROOM_ID);
 
 //to mute the audio
 const muteAudio = () => {
