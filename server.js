@@ -3,6 +3,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const users = {}
+let roomBoard = {}
 
 const { ExpressPeerServer } = require('peer');
 const peerServer = ExpressPeerServer(server, {
@@ -45,6 +46,23 @@ io.on('connection', socket => {
             socket.broadcast.emit('left', users[socket.id]);
             delete users[socket.id];
         });
+
+        socket.on('getCanvas', () => {
+            if (roomBoard[roomId])
+                socket.emit('getCanvas', roomBoard[roomId]);
+        });
+    
+        socket.on('draw', (newx, newy, prevx, prevy, color, size) => {
+            socket.to(roomId).emit('draw', newx, newy, prevx, prevy, color, size);
+        })
+    
+        socket.on('clearBoard', () => {
+            socket.to(roomId).emit('clearBoard');
+        });
+    
+        socket.on('store canvas', url => {
+            roomBoard[roomId] = url;
+        })
     })
 })
 server.listen(process.env.PORT||443);
