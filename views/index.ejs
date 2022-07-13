@@ -17,11 +17,15 @@
             <li class="brand"><img src="https://www.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_2x_icon_124_40_292e71bcb52a56e2a9005164118f183b.png" alt="Google-Meet">
                 <span id="meet">Meet</span>
             </li>
-             <div class="navright">
-            <li class="navRight1 time">Time</li>
-            <li class="navRight1 day">Day</li>
-           
-            <li class="setting navRight1"><i class="fa-solid fa-gear"></i></li></div>
+            <div class="navright">
+                <li class="navRight1 time">Time</li>
+                <li class="navRight1 day">Day</li>
+
+                <form action="/logout?_method=DELETE" method="POST">
+                    <button  id="logoutbtn" type="submit">Log out</button>
+                </form>
+                <!-- <li class="setting navRight1"><i class="fa-solid fa-gear"></i></li> -->
+            </div>
         </ul>
     </nav>
 
@@ -30,29 +34,26 @@
             <h1 id="firstline">Premium video meetings.</h1>
             <h1 id="secondline">Now free for everyone</h1>
             <p id="parainbox1">
-                We re-engineered the service we build for secure bussiness meetings,Google Meet,to make
-                it free and available for all.
+                We re-engineered the service we build for secure bussiness meetings,Google Meet,to make it free and available for all.
             </p>
             <section>
                 <button onclick="location.href='<%= link %>'" class="button rounded-corners"><i class="fa-solid fa-video"></i>New meeting</button>
-                <form action="#">
-                    <input type="text" class="rounded-corners" placeholder="Enter a link or code" ></input>
+                <form class="inputlink" action="#">
+                    <input type="text" class="rounded-corners" placeholder="Enter a link or code"></input>
                 </form>
-               
+
             </section>
         </div>
-        
+
 
         <div class="box2 col1">
             <div id="mainImage"><img src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90698cd7b4ca04d3005c962a3756c42d.svg" alter="main-image"></div>
             <h2>Get a link you can share</h2>
-            <p id="parainbox2">Click <span id="new-meeting">New meeting</span>to get a link you can send to<br> people you
-                want to meet with</p>
+            <p id="parainbox2">Click <span id="new-meeting">New meeting</span>to get a link you can send to<br> people you want to meet with</p>
         </div>
 
     </div>
-    <div id="nextline"><a href="https://support.google.com/meet/?hl=en-GB#topic=7306097"
-        target="_blank" class="links">Learn more</a> about Google Meet</div>
+    <div id="nextline"><a href="https://support.google.com/meet/?hl=en-GB#topic=7306097" target="_blank" class="links">Learn more</a> about Google Meet</div>
 
 
     <script src="home.js"></script>

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gmeet Clone</title>
-    
+
     <script>
-        const ROOM_ID="<%= roomId %>";
+        const ROOM_ID = "<%= roomId %>";
     </script>
     <script src="https://unpkg.com/peerjs@1.4.5/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    
+
     <link rel="stylesheet" href="meeting.css">
-    
+
     <!-- bootstrap for fontstyling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
@@ -22,6 +23,7 @@
     <!-- fontawesome for icons -->
     <script src="https://kit.fontawesome.com/8ddd25fe84.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
     <div class="main">
@@ -51,11 +53,11 @@
         <div class="right-section show_right">
             <div class=chat_system>
                 <div class="chathead">
-                     <h5>Chat</h5>
+                    <h5>Chat</h5>
                 </div>
-                 <hr style="margin:0.4rem 0">
+                <hr style="margin:0.4rem 0">
                 <div class="container chat_window">
-                    
+
                 </div>
                 <div class="send message_container">
                     <form autocomplete="off" action="#" id="send-container">
@@ -64,33 +66,33 @@
                     </form>
                 </div>
             </div>
-        </div> 
-            <div class="right-section2 show_right2">
-                <div class=participant_system>
-                    <div class="partihead">
-                         <h5>Participant</h5>
-                    </div>
-                     <hr style="margin:0.4rem 0">
-                    <div class="parti_window">
-                        <ul class="participant_box">
+        </div>
+        <div class="right-section2 show_right2">
+            <div class=participant_system>
+                <div class="partihead">
+                    <h5>Participant</h5>
+                </div>
+                <hr style="margin:0.4rem 0">
+                <div class="parti_window">
+                    <ul class="participant_box">
 
-                        </ul>
-                    </div>
-                    <div class="participant_link">
-                        <label for="">Link to join meeting:</label>
-                        <span>
+                    </ul>
+                </div>
+                <div class="participant_link">
+                    <label for="">Link to join meeting:</label>
+                    <span>
                         <input type="text" class="link">
                         <button class="copybtn" onclick="copylink()">Copy</button>
                         </span>
-                    </div>
                 </div>
-            </div>   
+            </div>
+        </div>
     </div>
     <div class="controls">
-        <div class="controls_time">    
+        <div class="controls_time">
             <span class="time">Time</span>
         </div>
-        
+
         <div class="controlsblock">
             <div onclick="stopVideo()" class="controls_button video_button">
                 <i class="fa-solid fa-video"></i>
@@ -130,9 +132,9 @@
             </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
-    
+
 </body>
-    
+
 </html>

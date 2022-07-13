@@ -7,15 +7,14 @@ const peer = new Peer(undefined, {
     path: '/peerjs',
     host: '/',
     port: '443'
-}
-);
+});
 const append = (message, position) => {
     const messageElement = document.createElement('div');
     messageElement.innerText = message;
     messageElement.classList.add('message');
     messageElement.classList.add(position);
     messageContainer.append(messageElement);
-    messageContainer.scrollTop=messageContainer.scrollHeight;
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -28,28 +27,28 @@ const nig = prompt("enter your name to join");
 
 //to add participant name inside participant_box
 let parti = document.querySelector('.participant_box');
-    let par = document.createElement('li');
-    par.innerHTML = `${nig}`;
-    parti.appendChild(par);
-    par.classList.add(nig);
+let par = document.createElement('li');
+par.innerHTML = `${nig}`;
+parti.appendChild(par);
+par.classList.add(nig);
 
 socket.emit('new-user-joined', nig);
 socket.on('user-joined', nig => {
     append(`${nig} joined`, 'right');
-    
+
     let par = document.createElement('li');
     par.classList.add(nig);
     par.innerHTML = `${nig}`;
     parti.appendChild(par);
-    
+
 })
 socket.on('receive', data => {
     append(`${data.nig}: ${data.message}`, 'left');
 })
 socket.on('left', nig => {
     append(`${nig} left`, 'left');
-    let p=document.querySelector(`.${nig}`);
-    if(p!=null){p.remove();}
+    let p = document.querySelector(`.${nig}`);
+    if (p != null) { p.remove(); }
 })
 const myVideo = document.createElement('video');
 myVideo.muted = true;
@@ -67,7 +66,7 @@ navigator.mediaDevices.getUserMedia({
         call.answer(stream)
         const video = document.createElement('video')
         call.on('stream', userVideoStream => {
-          addVideoStream(video, userVideoStream)
+            addVideoStream(video, userVideoStream)
         })
     })
 
@@ -76,19 +75,18 @@ navigator.mediaDevices.getUserMedia({
         //connectToNewUser(userId, stream);
     })
 
-    socket.on('user-disconnected', userId=> {
-    if (peers[userId]){
-        console.log('user left');
-        peers[userId].close();
-    }
-})
+    socket.on('user-disconnected', userId => {
+        if (peers[userId]) {
+            console.log('user left');
+            peers[userId].close();
+        }
+    })
 })
 
 
 peer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id);
-}
-)
+})
 
 const connectToNewUser = (userId, stream) => {
     console.log('new user');
@@ -99,11 +97,11 @@ const connectToNewUser = (userId, stream) => {
     })
 
     peers[userId] = call;
-    
-    call.on('close', ()=>{
+
+    call.on('close', () => {
         video.remove();
     })
-    
+
 }
 const addVideoStream = (video, stream) => {
     video.srcObject = stream;
@@ -111,18 +109,16 @@ const addVideoStream = (video, stream) => {
         video.play();
     })
     videoGrid.append(video);
-    if(videoGrid.childElementCount==1){
-        document.querySelector('video').style.width= '80%';
-        if(window.innerWidth<window.innerHeight){
+    if (videoGrid.childElementCount == 1) {
+        document.querySelector('video').style.width = '80%';
+        if (window.innerWidth < window.innerHeight) {
             document.querySelector('video').style.height = '90vw';
-        }
-        else{
+        } else {
             document.querySelector('video').style.height = '80vh';
         }
-    }
-    else{
-        document.querySelector('video').style.width= videoGrid.lastChild.style.width;
-        document.querySelector('video').style.height= videoGrid.lastChild.style.height;
+    } else {
+        document.querySelector('video').style.width = videoGrid.lastChild.style.width;
+        document.querySelector('video').style.height = videoGrid.lastChild.style.height;
     }
 }
 
@@ -190,8 +186,7 @@ function clearBoard() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         socket.emit('store canvas', canvas.toDataURL());
         socket.emit('clearBoard');
-    }
-    else return;
+    } else return;
 }
 
 socket.on('clearBoard', () => {
@@ -253,8 +248,7 @@ whiteboardButt.addEventListener('click', () => {
     if (boardVisisble) {
         whiteboardCont.style.visibility = 'hidden';
         boardVisisble = false;
-    }
-    else {
+    } else {
         whiteboardCont.style.visibility = 'visible';
         boardVisisble = true;
     }
@@ -264,15 +258,16 @@ whiteboardButt.addEventListener('click', () => {
 
 
 //join meeting link
-    let copyText = ROOM_ID;
-    document.querySelector('.link').value = copyText; 
-function copylink(){  //inside participant section
+let copyText = ROOM_ID;
+document.querySelector('.link').value = copyText;
+
+function copylink() { //inside participant section
     let inputlink = document.querySelector('.link');
     inputlink.select();
-    inputlink.setSelectionRange(0,99999);
+    inputlink.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(inputlink.value);
 }
-alert('share this meeting link with others to join(available inside participant section):   '+ ROOM_ID);
+alert('share this meeting link with others to join(available inside participant section):   ' + ROOM_ID);
 
 //to mute the audio
 const muteAudio = () => {
@@ -281,8 +276,7 @@ const muteAudio = () => {
     if (enabled) {
         myVideoStream.getAudioTracks()[0].enabled = false;
         setUnmuteButton();
-    }
-    else {
+    } else {
         myVideoStream.getAudioTracks()[0].enabled = true;
         setMuteButton();
     }
@@ -311,8 +305,7 @@ const stopVideo = () => {
     if (enabled) {
         myVideoStream.getVideoTracks()[0].enabled = false;
         setPlayButton();
-    }
-    else {
+    } else {
         myVideoStream.getVideoTracks()[0].enabled = true;
         setStopButton();
     }
@@ -340,11 +333,15 @@ const setStopButton = () => {
 setInterval(() => {
     let Time = new Date();
     let format = 'AM',
-        hour = Time.getHours(), minute = Time.getMinutes();
+        hour = Time.getHours(),
+        minute = Time.getMinutes();
 
     //fixing
     if (hour == 0) { hour = 12; }
-    if (hour > 12) { format = 'PM'; hour = hour - 12; }
+    if (hour > 12) {
+        format = 'PM';
+        hour = hour - 12;
+    }
     if (hour / 10 < 1) { hour = '0' + hour; }
     if (minute / 10 < 1) { minute = '0' + minute; }
 
@@ -368,8 +365,7 @@ chatbtn.addEventListener('click', () => {
     if (document.querySelector('.show_right').style.display == "block") { //if right-section(chat) is already present then remove it
         document.querySelector('.show_right').style.display = "none";
         document.querySelector('.left-section').style.width = "100%";
-    }
-    else {
+    } else {
         document.querySelector('.show_right').style.display = "block";
         document.querySelector('.show_right2').style.display = "none";
 
@@ -386,8 +382,7 @@ const openparticipant = () => {
     if (document.querySelector('.show_right2').style.display == "block") { //if right-section(chat) is already present then remove it
         document.querySelector('.show_right2').style.display = "none";
         document.querySelector('.left-section').style.width = "100%";
-    }
-    else {
+    } else {
         document.querySelector('.show_right2').style.display = "block";
         document.querySelector('.show_right').style.display = "none";
 
@@ -398,10 +393,10 @@ const openparticipant = () => {
 
 //for more options
 document.querySelector('.more_options').addEventListener('click', () => {
-    document.querySelector('.more_options_content').classList.toggle('show_content');
-})
-//to close the more options content if user clicks oustide of it
-window.onclick = function (event) {
+        document.querySelector('.more_options_content').classList.toggle('show_content');
+    })
+    //to close the more options content if user clicks oustide of it
+window.onclick = function(event) {
     if (!event.target.matches('.more')) {
         let content = document.getElementsByClassName('more_options_content');
         for (let i = 0; i < content.length; i++) {
